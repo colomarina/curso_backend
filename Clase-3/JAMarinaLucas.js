@@ -2,7 +2,7 @@ const finalizar = (cantidadPalabras) => {
     console.log(`Proceso completo, y hay ${cantidadPalabras} palabras`)
 }
 var id;
-let recorrerTexto = (string,callback,opcional) => {
+let recorrerTexto = (string,callback,tiempoOpcional) => {
     let cantidad_de_palabras = 0;
     string = string.split(' ');
     id = setInterval(() => {
@@ -12,7 +12,7 @@ let recorrerTexto = (string,callback,opcional) => {
         }else{
             console.log(string[cantidad_de_palabras++])
         }
-    }, (opcional)?opcional:1000);
+    }, (tiempoOpcional)?tiempoOpcional:1000);
 }
 
 recorrerTexto('Hola Tutor soy tu alumno Lucas Marina',finalizar)
