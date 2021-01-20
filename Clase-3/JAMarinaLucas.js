@@ -25,5 +25,27 @@ let recorrerTexto = (string,callback,tiempoOpcional) => {
 //         })
 //     // });
 // }
-const promesa = recorrerTexto('Hola Mundo',finalizar)
-console.log(promesa,'hola');
+// const promesa = recorrerTexto('Hola Mundo',finalizar)
+// console.log(promesa,'hola');
+
+
+function hacerAlgo() {
+    return new Promise( (resolve,reject) => {
+        console.log('Arrancan las funciones')
+        // recorrerTexto('Hola Mundo',finalizar)
+    } )
+}
+
+hacerAlgo()
+.then(
+    recorrerTexto('Hola Mundo',finalizar)
+    // console.log('1')
+)
+.then(
+    console.log('2')
+//     recorrerTexto('Buenos Dias soy Lucas',finalizar,5000)
+)
+.then(
+    console.log('3')
+//     recorrerTexto('Hola Tutor soy tu alumno Lucas Marina',finalizar)
+)
