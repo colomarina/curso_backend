@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Colito</h1>
+
+    <input type="text" id="i_texto">
+    <span id="s_espejoTexto"></span>
+
+    <script type="module">
+        import { fromEvent } from 'https://dev.jspm.io/rxjs@6/_esm2015';
+        import { map, filter } from 'https://dev.jspm.io/rxjs@6/_esm2015/operators';
+
+        const input_texto = document.getElementById('i_texto');
+        const span_espejo = document.getElementById('s_espejoTexto');
+        const observable = fromEvent(i_texto, 'keyup');
+
+        let espejoTexto = '';
+
+
+        const subscription = observable.subscribe( evento => {
+            espejoTexto += evento.key;
+
+            if (espejoTexto === 'error') {
+                subscription.error('Se ingreso la palabra (error)')
+            }
+
+            if (espejoTexto === 'complete') {
+                subscription.complete()
+            }
+
+            s_espejoTexto.textContent = espejoTexto.split('').reverse().join('');
+            setTimeout(() => {
+                subscription.unsubscribe()
+                clean()
+            },30000)
+        },error => {
+            console.log(error)
+            clean()
+        },complete => {
+            console.log('Se ingreso la palabra(complete)')
+            clean()
+        })
+
+        const clean = () => {
+            espejoTexto = '';
+            input_texto.value = '';
+            input_texto.disabled = true;
+            span_espejo.textContent = '';
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Colito</h1>
+    <script type="module">
+        import { Observable } from 'https://dev.jspm.io/rxjs@6/_esm2015';
+        const miObservable = Observable.create((observer) => {
+            observer.next('Hola');
+            setTimeout(() => {
+                observer.next('Mundo');
+                observer.complete()
+            },1500)
+        })
+
+        const observer = {
+            next: event => console.log(event),
+            error: error => console.log(error),
+            complete: () => console.log('Complete')
+        }
+
+        miObservable.subscribe( observer);
+
+
+    </script>
+</body>
+</html>
