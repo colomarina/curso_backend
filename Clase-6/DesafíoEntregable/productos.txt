@@ -1,0 +1,1 @@
+[{"id":1,"title":"Producto 1","price":100,"thubnail":"url_1"},{"id":2,"title":"Producto 2","price":200,"thubnail":"url_2"},{"id":3,"title":"Producto 3","price":300,"thubnail":"url_3"}]

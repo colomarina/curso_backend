@@ -30,9 +30,13 @@ const fs = require('fs')
 // })
 
 // Con ASYNC/AWAIT
-// const readFile = async () => {
-//     const data = await fs.promises.readFile('./path.txt', 'utf-8')
-//     console.log(data)
-// }
+const readFile = async () => {
+    const data = await fs.promises.readFile('./path.txt', 'utf-8')
+    console.log(data)
+}
+const guardarFile = async () => {
+    const data = await fs.promises.writeFile('./path.txt','contenido')
+    console.log(data)
+}
 
-// readFile()
+guardarFile()
