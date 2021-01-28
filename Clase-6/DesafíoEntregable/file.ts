@@ -8,12 +8,13 @@ interface Producto {
 }
 
 export class File {
+    
     filename: string;
 
     constructor(nuevoFilename: string){
         this.filename = nuevoFilename;
     }
-
+    
     async leer () {
         try {
             const dataFile = await fs.promises.readFile(`./${this.filename}`,'utf-8')
@@ -22,6 +23,7 @@ export class File {
             return '[]'
         }
     }
+    
     async crearGuardar (contenido: Array<Producto>) {
         try {
             const dataFile = await fs.promises.writeFile(`./${this.filename}`,JSON.stringify(contenido))
@@ -30,6 +32,7 @@ export class File {
             return error
         }
     }
+    
     async agregar (array: any, producto: Producto) {
         try {
             producto.id = array.length + 1;
@@ -40,6 +43,7 @@ export class File {
             return `El archivo no existe! \n${error}` 
         }
     }
+    
     async borrar () {
         try {
             const dataFile = await fs.promises.unlink(`./${this.filename}`)
