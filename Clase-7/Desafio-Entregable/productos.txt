@@ -1,0 +1,29 @@
+[
+    {
+        "id":1,"title":"Producto 1","price":100,"thubnail":"url_1"
+    },
+    {
+        "id":2,"title":"Producto 2","price":200,"thubnail":"url_2"
+    },
+    {
+        "id":3,"title":"Producto 3","price":300,"thubnail":"url_3"
+    },
+    {
+        "id":4,"title":"Producto 4","price":400,"thubnail":"url_4"
+    },
+    {
+        "id":5,"title":"Producto 5","price":500,"thubnail":"url_5"
+    },
+    {
+        "id":6,"title":"Producto 6","price":600,"thubnail":"url_6"
+    },
+    {
+        "id":7,"title":"Producto 7","price":700,"thubnail":"url_7"
+    },
+    {
+        "id":8,"title":"Producto 8","price":800,"thubnail":"url_8"
+    },
+    {
+        "id":9,"title":"Producto 9","price":900,"thubnail":"url_9"
+    }
+]
