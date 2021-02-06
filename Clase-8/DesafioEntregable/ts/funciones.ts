@@ -14,6 +14,8 @@ export class Errores {
     constructor(mensaje: string){
         this.error = mensaje;
     }
+
+    
 }
 
 export class Producto {
