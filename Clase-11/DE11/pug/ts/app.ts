@@ -12,19 +12,12 @@ const path = require('path')
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
-// Configuracion de Handlebars
-app.engine('hbs',
-    handlebars({
-        extname: '.hbs',
-        defaultLayout: 'index.hbs',
-        layoutsDir: __dirname + '/views/layouts/',
-        partialsDir: __dirname +  '/views/partials/',
-    })
-)
-// Establecemos el motor de plantilla que vamos a utilizar!
-app.set('view engine', 'hbs');
+// Configuracion de PUG
 // Establecemos el directorio donde se encuentran los archivos de plantillas
 app.set('views',path.join(__dirname, '/views'))
+// Establecemos el motor de plantilla que vamos a utilizar!
+app.set('view engine', 'pug');
+
 // El agregar lo sincronice con esta plantilla , asi utilizaba ambos casos
 app.use('/api/agregar_producto',express.static('public'))
 app.use('/api', router)

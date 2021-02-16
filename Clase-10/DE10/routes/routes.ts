@@ -33,11 +33,17 @@ router.get('/productos/:id', (req,res) => {
 })
 // Almacenar un producto (post) : '/api/productos' -> devuelve producto incorporado
 router.post('/productos', (req,res) => {
-    const { title, price, thumbnail } = req.body
-    const producto = new Producto(P.productos.length,title,+price,thumbnail);
-    P.agregar(producto)
-    // res.json(producto)
-    res.redirect('/api/productos_vista')
+    
+    if ((req.body.title === '') || (req.body.price === '') || (req.body.thumbnail === '')) {
+        // alert('Error: Debe rellenar todos los campos...')
+        mensaje_error.error = "Error: Debe rellenar todos los campos...";
+        res.json(mensaje_error)
+    } else {
+        const { title, price, thumbnail } = req.body
+        const producto = new Producto(P.productos.length,title,+price,thumbnail);
+        P.agregar(producto)            
+        res.redirect('/api/productos_vista')
+    }
 })
 // Actualizar un producto (put) : '/api/productos/actualizar/:id' -> devuelve producto actualizado
 router.patch('/productos/:id', (req,res) => {

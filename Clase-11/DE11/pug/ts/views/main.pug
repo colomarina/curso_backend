@@ -1,0 +1,26 @@
+doctype html 
+html
+    include includes/head.pug
+    body
+        div(class="container")
+            h2(class="text-center fw-bolder")="Vista de Productos"
+            if listaTieneElementos
+                table(class="table")
+                    thead(class="table-dark")
+                        tr
+                            th(class="text-center" scope="col")="Nombre"
+                            th(class="text-center" scope="col")="Precio"
+                            th(class="text-center" scope="col")="Imagen"
+                    tbody
+                        each producto in productos
+                            tr
+                                td(class="text-center")=producto.title
+                                td(class="text-center")="$"+producto.price
+                                td
+                                    img(src=producto.thumbnail alt="..." class="img-fluid rounded mx-auto d-block" style="max-width: 50px; max-heigth: 50px")
+                include components/button.pug
+            else 
+                div(class="alert alert-warning" role="alert")
+                    h5(class="text-center")="No se encontraron productos"
+                include components/button.pug
+        include includes/scripts.pug
