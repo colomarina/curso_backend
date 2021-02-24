@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/header')%>
+</head>
+<body class="container">
+            <br>
+            <!-- <h2 class="text-center fw-bolder">Agregar Producto</h2> -->
+            <h1 class="text-center fw-bolder">Ingrese un Producto</h1>
+            <form action="/api/productos" method="post" enctype="application/x-www-form-urlencoded" id="form">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" name="title" id="title">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" name="price" id="price">
+                </div>
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label">Thumbnail</label>
+                    <input type="text" class="form-control" name="thumbnail" id="thumbnail">
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-success" type="submit">Enviar Producto</button>
+                </div>
+            </form>
+
+
+            <hr>
+            <h2 class="text-center fw-bolder">Vista de Productos</h2>
+        
+            <% if(listaTieneElementos) { %>
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center" scope="col">Nombre</th>
+                            <th class="text-center" scope="col">Precio</th>
+                            <th class="text-center" scope="col">Imagen</th>
+        
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- <% productos.forEach((producto) => { %> -->
+                        <!-- <tr>
+                            <td class="text-center"><%= producto.title %></td>
+                            <td class="text-center">$ <%= producto.price %></td>
+                            <td><img src="<%= producto.thumbnail %>" alt="..." class="img-fluid rounded mx-auto d-block" style="max-width: 50px;"></td>
+                        </tr> -->
+                        <!-- <% }) %> -->
+                    </tbody>
+                </table>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-success" onclick="location.href = '/api/agregar_producto';">Ir a agregar producto</button>
+                </div>
+            <% } else { %>
+                <div class="alert alert-warning" role="alert">
+                    <h5 class="text-center">
+                        No se encontraron productos
+                    </h5>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-success" onclick="location.href = '/api/agregar_producto';">Ir a agregar producto</button>
+                </div>
+            <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        let inputValues = {
+            title: '',
+            price: '',
+            thumbnail: ''
+        }
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', e => {
+                inputValues = {...inputValues, [e.target.name]: e.target.value};
+          })
+        })
+
+
+        document.querySelector('#form').addEventListener('submit', e => {
+            e.preventDefault()
+            const { title, precio, thumbnail } = inputValues;
+            console.log(inputValues)
+            // if([title.trim(), precio.trim(), thumbnail.trim()].includes('')) {
+            //     console.log('Hubo un error!');
+            // // document.querySelector('.error').innerHTML = '<p style="color: red;">Hubo un error</p>'
+            //     return;
+            // }
+            // document.querySelector('.error').innerHTML = '';
+            socket.emit('producto', inputValues);
+            inputs.forEach(input => input.value = '');
+        })
+
+        function renderTable(productos) {
+            let tbody = document.querySelector('#table-body');
+            // tbody.innerHTML = '';
+            let table = '';
+            // console.log(productos)
+            productos.productos.forEach((producto) => {
+                table = `
+                    <tr>
+                        <td class="text-center">${producto.title}</td>
+                        <td class="text-center">$ ${producto.price}</td>
+                        <td><img src="${ producto.thumbnail }" alt="..." class="img-fluid rounded mx-auto d-block" style="max-width: 50px;"></td>
+                    </tr>
+                `
+            })
+
+            tbody.innerHTML = table;
+        }
+
+        socket.on('productos', (productos) => {
+            // console.log(productos)
+            // debugger;
+            renderTable(productos)
+
+        })
+    </script>
+</body>
+</html>
