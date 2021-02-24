@@ -9,10 +9,12 @@
     <hr>
     <%- include('../partials/table')%>
     <hr>
+    <%- include('../partials/chat')%>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+
         function renderTable(productos) {
             let tbody = document.getElementById('tbody');
             tbody.innerHTML = '';
@@ -50,9 +52,15 @@
             price: '',
             thumbnail: ''
         }
+        let inputValuesChat = {
+            mail: '',
+            message: ''
+        }
         let msg = ''
         const inputs = document.querySelectorAll('input');
         const errores = document.querySelector('#errores');
+        const errores_chat = document.querySelector('#errores_chat');
+        const lista_mensajes = document.querySelector('#lista_mensajes');
         
         inputs.forEach(input => {
             input.addEventListener('input', e => {
@@ -102,11 +110,48 @@
                 errores.innerHTML = msg;
             }
         })
-               
+        document.querySelector('#form-chat').addEventListener('submit', e => {
+            e.preventDefault()
+            if ((inputValuesChat.mail !== '') && (inputValuesChat.message !== '')) {
+                document.querySelector('#errores_chat').style.display = "none";
+                const { mail, message} = inputValuesChat;
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                socket.emit('mensaje', inputValuesChat);
+                inputValuesChat = {
+                    mail: '',
+                    message: ''
+                }
+            } else {
+                document.querySelector('#errores_chat').style.display = "block";
+                msg = '<p>Mensaje no enviado, complete los siguientes campos</p>';
+                inputs.forEach(input => {
+                    if (input.value === '') {
+                        switch (input.name) {
+                            case 'mail':
+                                msg += `<p> - Correo electronico</p>`;
+                                break;
+                            case 'message':
+                                msg += `<p> - Mensaje</p>`;
+                                break;
+                        }
+                    }
+                })
+                errores_chat.innerHTML = msg;
+            }
+        })
+        
 
         socket.on('productos', (productos) => {
             renderTable(productos)
         })
+
+        socket.on('mensajes', (messages) => {
+            renderChat(messages)
+            // console.log(messages)
+        })
+
     </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+<h1 class="text-center">Centro de Mensajes</h1>
+<form action="" id="form-chat">
+    <div class="row">
+        <div class="col">
+            <label for="mail" class="form-label">Correo electronico</label>
+            <input type="text" class="form-control" id="mail" name="mail" >
+        </div>
+        <div class="col">
+            <label for="message" class="form-label">Mensaje</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="message" name="message" aria-describedby="send-message">
+                <button class="btn btn-outline-success" type="submit" id="send-message">Enviar</button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+          </div>
+    </div>
+</form>
+<div id="errores_chat" class="alert alert-warning" role="alert" style="display: none;">
+                
+</div>
+<div class="row" id="lista_mensajes">
+
+</div>

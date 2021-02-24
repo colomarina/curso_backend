@@ -1,7 +1,7 @@
 import express from "express";
 import router from "../routes/routes";
 import path = require('path');
-import { Producto, Productos } from "./funciones";
+import { fechayhora, Mensaje, Mensajes, Producto, Productos } from "./funciones";
 
 // RUTAS DE LAS PLANTILLAS 
 // /api/agregar_producto  ---> agregar productos
@@ -12,6 +12,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const P = new Productos();
+const M = new Mensajes();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 // Configuracion de EJS
@@ -27,6 +28,7 @@ app.use('/api', router)
 io.on('connection', (socket: any) => {
     // console.log(socket.id);
     socket.emit('productos', P)
+    socket.emit('mensajes', M)
 
     socket.on('producto', (prod: any) => {
 
@@ -39,6 +41,19 @@ io.on('connection', (socket: any) => {
         // console.log(P)
 
         io.emit('productos', P)
+    })
+
+    socket.on('mensaje', (messag: any) => {
+        
+        const { mail , message } = messag
+
+        const mensaje = new Mensaje( mail, fechayhora() , message );
+
+        M.agregar(mensaje)
+
+        // console.log(M)
+
+        io.emit('mensajes', M)
     })
 })
 
