@@ -6,11 +6,11 @@ const P = new Productos();
 let mensaje_error = new Errores('')
 
 router.get('/productos_vista', (req,res) => {
-    let lista;
-    (P.productos.length === 0)?lista = false : lista=true ;
+    // let lista;
+    // (P.productos.length === 0)?lista = false : lista=true ;
     res.render('pages/index', {
         productos: P.productos,
-        listaTieneElementos: lista
+        // listaTieneElementos: lista
     })
 })
 
@@ -42,8 +42,9 @@ router.post('/productos', (req,res) => {
         const { title, price, thumbnail } = req.body
         const producto = new Producto(P.productos.length,title,+price,thumbnail);
         P.agregar(producto)            
-        res.redirect('/api/productos_vista')
+        // res.redirect('/api/productos_vista')
         // res.json(producto)
+        res.sendStatus(200)
     }
 })
 // Actualizar un producto (put) : '/api/productos/actualizar/:id' -> devuelve producto actualizado

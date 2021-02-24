@@ -28,10 +28,10 @@ app.use('/api', router)
 
 io.on('connection', (socket: any) => {
     // console.log(socket.id);
-    socket.broadcast.emit('productos', {P})
+    socket.emit('productos', P)
 
     socket.on('producto', (message: any) => {
-        // console.log(message)
+
         const { title , price, thumbnail } = message;
 
         const producto = new Producto(P.productos.length,title,+price,thumbnail);
@@ -43,10 +43,6 @@ io.on('connection', (socket: any) => {
 })
 
 const port = 8080;
-// const server = app.listen(port,()=>{
-//     console.log(`El servidor se encuentra en el puerto: 8080`)
-// })
-// server.on("error", error => console.log(`Error en el servidor, ${error}`))
 http.listen(port,()=>{
    console.log(`El servidor se encuentra en el puerto: 8080`)    
 })
