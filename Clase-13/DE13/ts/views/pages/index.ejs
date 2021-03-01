@@ -47,6 +47,16 @@
             })
             div.innerHTML = mensajes;
         }
+        function renderWhoWrites(usuario) {
+            let div = document.getElementById('quien_escribe');
+            div.innerHTML = '';
+            let quien_escribe = '';
+            quien_escribe = `<p>
+                    <span style="color: blue;font-weight: bold;">${usuario}</span>            
+                    </p>
+                `
+            div.innerHTML = quien_escribe;
+        }
         let inputValuesFormulario = {
             title: '',
             price: '',
@@ -131,17 +141,24 @@
                         switch (input.name) {
                             case 'mail':
                                 msg += `<p> - Correo electronico</p>`;
+                                document.querySelector('#mail').focus();
                                 break;
                             case 'message':
                                 msg += `<p> - Mensaje</p>`;
+                                document.querySelector('#message').focus();
                                 break;
                         }
                     }
                 })
                 errores_chat.innerHTML = msg;
+
             }
         })
         
+        // document.querySelector('#message').addEventListener('keyup', (evento) => {
+        //     evento.preventDefault()
+        //     socket.emit('escribiendo', document.querySelector('#message').value);
+        // })
 
         socket.on('productos', (productos) => {
             renderTable(productos)
@@ -149,8 +166,11 @@
 
         socket.on('mensajes', (messages) => {
             renderChat(messages)
-            // console.log(messages)
         })
+
+        // socket.on('alguien esta escribiendo', (usuario) => {
+        //     renderWhoWrites(usuario)
+        // })
 
     </script>
 </body>
