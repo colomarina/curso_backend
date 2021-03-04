@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/header')%>
+</head>
+<body class="container">
+    <br>
+    <%- include('../partials/form')%>
+    <hr>
+    <%- include('../partials/table')%>
+    <hr>
+    <%- include('../partials/chat')%>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        function renderTable(productos) {
+            let tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+            let table = '';
+
+            productos.productos.forEach((producto) => {
+                table += `
+                    <tr>
+                        <td class="text-center">${producto.title}</td>
+                        <td class="text-center">$ ${producto.price}</td>
+                        <td><img src="${ producto.thumbnail }" alt="..." class="img-fluid rounded mx-auto d-block" style="max-width: 50px;"></td>
+                    </tr>
+                `
+            })
+            tbody.innerHTML = table;
+        }
+        function renderChat(messages) {
+            let div = document.getElementById('lista_mensajes');
+            div.innerHTML = '';
+            let mensajes = '';
+            // console.log(messages)
+            messages.mensajes.forEach((mensaje) => {
+                mensajes += `<p>
+                    <span style="color: blue;font-weight: bold;">${mensaje.mail}</span>
+                    [<span style="color: maroon">${mensaje.dateandhour}</span>]:
+                    <span style="color: green;font-style: italic;">${mensaje.message}</span>
+                    
+                    </p>
+                `
+            })
+            div.innerHTML = mensajes;
+        }
+        function renderWhoWrites(usuario) {
+            let div = document.getElementById('quien_escribe');
+            div.innerHTML = '';
+            let quien_escribe = '';
+            quien_escribe = `<p>
+                    <span style="color: blue;font-weight: bold;">${usuario}</span>            
+                    </p>
+                `
+            div.innerHTML = quien_escribe;
+        }
+        let inputValuesFormulario = {
+            title: '',
+            price: '',
+            thumbnail: ''
+        }
+        let inputValuesChat = {
+            mail: '',
+            message: ''
+        }
+        let msg = ''
+        const inputs = document.querySelectorAll('input');
+        const errores = document.querySelector('#errores');
+        const errores_chat = document.querySelector('#errores_chat');
+        const lista_mensajes = document.querySelector('#lista_mensajes');
+        
+        inputs.forEach(input => {
+            input.addEventListener('input', e => {
+                if ((e.target.name === 'title') || (e.target.name === 'price') || (e.target.name === 'thumbnail')) {
+                    inputValuesFormulario = {...inputValuesFormulario, [e.target.name]: e.target.value};
+                }
+                if ((e.target.name === 'mail') || (e.target.name === 'message')) {
+                    inputValuesChat = {...inputValuesChat, [e.target.name]: e.target.value};
+                }
+          })
+        })
+
+        const socket = io();
+
+        document.querySelector('#form').addEventListener('submit', e => {
+            e.preventDefault()
+            if ((inputValuesFormulario.title !== '') && (inputValuesFormulario.price !== '') && (inputValuesFormulario.thumbnail !== '')) {
+                document.querySelector('#errores').style.display = "none";
+                const { title, precio, thumbnail } = inputValuesFormulario;
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                socket.emit('producto', inputValuesFormulario);
+                inputValuesFormulario = {
+                    title: '',
+                    price: '',
+                    thumbnail: ''
+                }
+            } else {
+                document.querySelector('#errores').style.display = "block";
+                msg = '<p>Error: se deben rellenar los siguientes campos</p>';
+                inputs.forEach(input => {
+                    if (input.value === '') {
+                        switch (input.name) {
+                            case 'title':
+                                msg += `<p> - Titulo</p>`;
+                                break;
+                            case 'price':
+                                msg += `<p> - Precio</p>`;
+                                break;
+                            case 'thumbnail':
+                                msg += `<p> - Imagen </p>`;
+                                break;
+                        }
+                    }
+                })
+                errores.innerHTML = msg;
+            }
+        })
+        document.querySelector('#form-chat').addEventListener('submit', e => {
+            e.preventDefault()
+            if ((inputValuesChat.mail !== '') && (inputValuesChat.message !== '')) {
+                document.querySelector('#errores_chat').style.display = "none";
+                const { mail, message} = inputValuesChat;
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                socket.emit('mensaje', inputValuesChat);
+                inputValuesChat = {
+                    mail: '',
+                    message: ''
+                }
+            } else {
+                document.querySelector('#errores_chat').style.display = "block";
+                msg = '<p>Mensaje no enviado, complete los siguientes campos</p>';
+                inputs.forEach(input => {
+                    if (input.value === '') {
+                        switch (input.name) {
+                            case 'mail':
+                                msg += `<p> - Correo electronico</p>`;
+                                document.querySelector('#mail').focus();
+                                break;
+                            case 'message':
+                                msg += `<p> - Mensaje</p>`;
+                                document.querySelector('#message').focus();
+                                break;
+                        }
+                    }
+                })
+                errores_chat.innerHTML = msg;
+
+            }
+        })
+        
+        // document.querySelector('#message').addEventListener('keyup', (evento) => {
+        //     evento.preventDefault()
+        //     socket.emit('escribiendo', document.querySelector('#message').value);
+        // })
+
+        socket.on('productos', (productos) => {
+            renderTable(productos)
+        })
+
+        socket.on('mensajes', (messages) => {
+            renderChat(messages)
+        })
+
+        // socket.on('alguien esta escribiendo', (usuario) => {
+        //     renderWhoWrites(usuario)
+        // })
+
+    </script>
+</body>
+</html>
