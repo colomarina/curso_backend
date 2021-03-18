@@ -1,7 +1,7 @@
 export const sqlite3Connection = {
     client: 'sqlite3',
     connection: {
-        filename: "./ts/DB/gatitos.sqlite"
+        filename: "./ts/DB/mensajes.db.sqlite"
     },
     useNullAsDefault: true
 }

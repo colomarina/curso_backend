@@ -92,6 +92,19 @@ export class Errores {
     }
 }
 
+export class Mensaje{
+
+    mail:string;
+    dateandhour:string;
+    message:string;
+
+    constructor(nuevoMail: string , nuevoDateandhour: string , nuevoMessage: string) {
+        this.mail = nuevoMail;
+        this.dateandhour = nuevoDateandhour;
+        this.message = nuevoMessage;
+    }
+}
+
 export class Usuario {
     administrador: boolean;
 

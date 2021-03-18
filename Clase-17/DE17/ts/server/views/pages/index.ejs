@@ -5,8 +5,8 @@
 </head>
 <body class="container">
     <br>
-    <%- include('../partials/form')%>
-    <hr>
+    <!-- <%- include('../partials/form')%> -->
+    <!-- <hr> -->
     <%- include('../partials/table')%>
     <hr>
     <%- include('../partials/chat')%>
@@ -20,12 +20,15 @@
             tbody.innerHTML = '';
             let table = '';
 
-            productos.productos.forEach((producto) => {
+            productos.forEach((producto) => {
+                console.log(producto)
                 table += `
                     <tr>
-                        <td class="text-center">${producto.title}</td>
-                        <td class="text-center">$ ${producto.price}</td>
-                        <td><img src="${ producto.thumbnail }" alt="..." class="img-fluid rounded mx-auto d-block" style="max-width: 50px;"></td>
+                        <td class="text-center">${producto.nombre}</td>
+                        <td class="text-center">${producto.descripcion}</td>
+                        <td class="text-center">${ producto.foto }</td>
+                        <td class="text-center">${producto.codigo}</td>
+                        <td class="text-center">$ ${producto.stock}</td>
                     </tr>
                 `
             })
@@ -35,8 +38,7 @@
             let div = document.getElementById('lista_mensajes');
             div.innerHTML = '';
             let mensajes = '';
-            // console.log(messages)
-            messages.mensajes.forEach((mensaje) => {
+            messages.forEach((mensaje) => {
                 mensajes += `<p>
                     <span style="color: blue;font-weight: bold;">${mensaje.mail}</span>
                     [<span style="color: maroon">${mensaje.dateandhour}</span>]:
@@ -85,41 +87,41 @@
 
         const socket = io();
 
-        document.querySelector('#form').addEventListener('submit', e => {
-            e.preventDefault()
-            if ((inputValuesFormulario.title !== '') && (inputValuesFormulario.price !== '') && (inputValuesFormulario.thumbnail !== '')) {
-                document.querySelector('#errores').style.display = "none";
-                const { title, precio, thumbnail } = inputValuesFormulario;
-                inputs.forEach(input => {
-                    input.value = '';
-                });
-                socket.emit('producto', inputValuesFormulario);
-                inputValuesFormulario = {
-                    title: '',
-                    price: '',
-                    thumbnail: ''
-                }
-            } else {
-                document.querySelector('#errores').style.display = "block";
-                msg = '<p>Error: se deben rellenar los siguientes campos</p>';
-                inputs.forEach(input => {
-                    if (input.value === '') {
-                        switch (input.name) {
-                            case 'title':
-                                msg += `<p> - Titulo</p>`;
-                                break;
-                            case 'price':
-                                msg += `<p> - Precio</p>`;
-                                break;
-                            case 'thumbnail':
-                                msg += `<p> - Imagen </p>`;
-                                break;
-                        }
-                    }
-                })
-                errores.innerHTML = msg;
-            }
-        })
+        // document.querySelector('#form').addEventListener('submit', e => {
+        //     e.preventDefault()
+        //     if ((inputValuesFormulario.title !== '') && (inputValuesFormulario.price !== '') && (inputValuesFormulario.thumbnail !== '')) {
+        //         document.querySelector('#errores').style.display = "none";
+        //         const { title, precio, thumbnail } = inputValuesFormulario;
+        //         inputs.forEach(input => {
+        //             input.value = '';
+        //         });
+        //         socket.emit('producto', inputValuesFormulario);
+        //         inputValuesFormulario = {
+        //             title: '',
+        //             price: '',
+        //             thumbnail: ''
+        //         }
+        //     } else {
+        //         document.querySelector('#errores').style.display = "block";
+        //         msg = '<p>Error: se deben rellenar los siguientes campos</p>';
+        //         inputs.forEach(input => {
+        //             if (input.value === '') {
+        //                 switch (input.name) {
+        //                     case 'title':
+        //                         msg += `<p> - Titulo</p>`;
+        //                         break;
+        //                     case 'price':
+        //                         msg += `<p> - Precio</p>`;
+        //                         break;
+        //                     case 'thumbnail':
+        //                         msg += `<p> - Imagen </p>`;
+        //                         break;
+        //                 }
+        //             }
+        //         })
+        //         errores.innerHTML = msg;
+        //     }
+        // })
         document.querySelector('#form-chat').addEventListener('submit', e => {
             e.preventDefault()
             if ((inputValuesChat.mail !== '') && (inputValuesChat.message !== '')) {
