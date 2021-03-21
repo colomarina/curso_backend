@@ -42,7 +42,7 @@ io.on("connection", (socket: any) => {
       console.log(error);
     });
   socket.on("producto", (prod: any) => {
-    const { nombre, descripcion, codigo, foto, stock } = prod;
+    const { nombre, descripcion, codigo, foto, precio, stock } = prod;
     let id = uuidv4();
     const producto = new Producto(
       id,
@@ -50,6 +50,7 @@ io.on("connection", (socket: any) => {
       descripcion,
       +codigo,
       foto,
+      +precio,
       +stock
     );
     agregarProducto(producto)

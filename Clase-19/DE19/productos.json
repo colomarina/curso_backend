@@ -1,0 +1,90 @@
+[{
+  "timestamp": 1616044433806,
+  "nombre": "Fideos",
+  "descripcion": "Descripcion de los fideos",
+  "codigo": 100,
+  "foto": "url_foto.png",
+  "precio": 120,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Galletitas",
+  "descripcion": "Descripcion de las galletitas",
+  "codigo": 101,
+  "foto": "url_foto.png",
+  "precio": 580,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Leche",
+  "descripcion": "Descripcion de la leche",
+  "codigo": 102,
+  "foto": "url_foto.png",
+  "precio": 900,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Pan",
+  "descripcion": "Descripcion del pan",
+  "codigo": 103,
+  "foto": "url_foto.png",
+  "precio": 1280,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Arvejas",
+  "descripcion": "Descripcion de las arvejas",
+  "codigo": 104,
+  "foto": "url_foto.png",
+  "precio": 1700,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Lechuga",
+  "descripcion": "Descripcion de la lechuga",
+  "codigo": 105,
+  "foto": "url_foto.png",
+  "precio": 2300,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Tostadas de arroz",
+  "descripcion": "Descripcion de las tostadas de arroz",
+  "codigo": 106,
+  "foto": "url_foto.png",
+  "precio": 2860,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Queso",
+  "descripcion": "Descripcion del queso",
+  "codigo": 107,
+  "foto": "url_foto.png",
+  "precio": 3350,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Banana",
+  "descripcion": "Descripcion de la banana",
+  "codigo": 108,
+  "foto": "url_foto.png",
+  "precio": 4320,
+  "stock": 100
+},
+{
+  "timestamp": 1616044433806,
+  "nombre": "Agua",
+  "descripcion": "Descripcion del agua",
+  "codigo": 109,
+  "foto": "url_foto.png",
+  "precio": 4990,
+  "stock": 100
+}]

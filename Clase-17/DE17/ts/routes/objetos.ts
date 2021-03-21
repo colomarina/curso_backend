@@ -5,15 +5,17 @@ export class Producto {
     descripcion: string;
     codigo: number;
     foto: string;
+    precio: number;
     stock: number;
     
-    constructor(nuevoId: string ,nuevoNombre: string, nuevoDescripcion: string,nuevoCodigo: number,nuevoFoto: string,nuevoStock: number) {
+    constructor(nuevoId: string ,nuevoNombre: string, nuevoDescripcion: string,nuevoCodigo: number,nuevoFoto: string,nuevoPrecio: number,nuevoStock: number) {
         this.id = nuevoId;
         this.timestamp = Date.now();
         this.nombre = nuevoNombre;
         this.descripcion = nuevoDescripcion;
         this.codigo = nuevoCodigo;
         this.foto = nuevoFoto;
+        this.precio = nuevoPrecio;
         this.stock = nuevoStock;
     }
 }

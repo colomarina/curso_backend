@@ -62,7 +62,7 @@ routerProductos.post("/productos", (req, res) => {
       mensaje_error.descripcion = "Debe rellenar todos los campos...";
       res.json(mensaje_error);
     } else {
-      const { nombre, descripcion, codigo, foto, stock } = req.body;
+      const { nombre, descripcion, codigo, foto, precio,stock } = req.body;
       let id = uuidv4();
       const producto = new Producto(
         id,
@@ -70,6 +70,7 @@ routerProductos.post("/productos", (req, res) => {
         descripcion,
         +codigo,
         foto,
+        +precio,
         +stock
       );
       agregarProducto(producto)
@@ -96,13 +97,14 @@ routerProductos.patch("/productos/:producto_id", (req, res) => {
       .then((rows: any) => {
         // ACA DEBERIA VALIDAR QUE ESTAN TODOS LOS CAMPOS DECLARADOS PARA ACTUALIZAR NO?
         const id = req.params.producto_id;
-        const { nombre, descripcion, codigo, foto, stock } = req.body;
+        const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
         const productoActualizar = new Producto(
           id,
           nombre,
           descripcion,
           +codigo,
           foto,
+          +precio,
           +stock
         );
         actualizarProducto(productoActualizar)
