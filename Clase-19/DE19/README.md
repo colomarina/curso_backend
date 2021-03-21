@@ -362,4 +362,5 @@ Productos
             
             > db.productos.deleteMany({precio: {$lt:1000}})
             { "acknowledged" : true, "deletedCount" : 4 }
+            
 6. Crear un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información.
