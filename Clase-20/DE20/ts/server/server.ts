@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from 'mongoose';
 import routerProductos from "../routes/productos";
 import routerCarritos from "../routes/carritos";
 import path = require("path");
@@ -7,6 +6,7 @@ import { fechayhora } from "../routes/constantes";
 import {
   agregarMensaje,
   agregarProducto,
+  connect,
   traerMensajes,
   traerProductos,
 } from "../DB/index.db";
@@ -79,12 +79,7 @@ io.on("connection", (socket: any) => {
 
 const port = 8080;
 const server = http.listen(port, () => {
-  mongoose.connect('mongodb://localhost:27017/ecommerce',
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }
-    )
+  connect()
         .then(() => console.log('El servidor se encuentra en el puerto: 8080 y se conecto correctamente a la DB ecommerce'))
         .catch((err) => console.log(err));
 });

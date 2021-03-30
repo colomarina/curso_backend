@@ -1,7 +1,18 @@
 import { knex_mysql, knex_sqlite3 } from "../routes/constantes";
+import mongoose from 'mongoose';
 import { Mensaje, Producto } from "../routes/objetos";
 import { mensajeModel } from "./models/mensajes";
 import { productoModel } from './models/producto';
+
+const conn = mongoose.connect('mongodb://localhost:27017/ecommerce', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+  }
+);
+
+export const connect = async (): Promise<any> => {
+  return await conn
+}
 
 // PRODUCTOS
 
