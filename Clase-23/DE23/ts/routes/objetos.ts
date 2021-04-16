@@ -97,15 +97,47 @@ export class Errores {
 export class Mensaje{
 
     mail:string;
+    nombre:string;
+    apellido:string;
+    edad:number;
+    alias:string;
+    avatar:string;
     dateandhour:string;
     message:string;
 
-    constructor(nuevoMail: string , nuevoDateandhour: string , nuevoMessage: string) {
+    constructor(
+        nuevoMail: string , 
+        nuevoNombre: string , 
+        nuevoApellido: string , 
+        nuevoEdad: number , 
+        nuevoAlias: string , 
+        nuevoAvatar: string , 
+        nuevoDateandhour: string , 
+        nuevoMessage: string
+        ) {
         this.mail = nuevoMail;
+        this.nombre = nuevoNombre;
+        this.apellido = nuevoApellido;
+        this.edad = nuevoEdad;
+        this.alias = nuevoAlias;
+        this.avatar = nuevoAvatar;
         this.dateandhour = nuevoDateandhour;
         this.message = nuevoMessage;
     }
 }
+
+export interface MensajeJSON {
+    id: any;
+    author: {
+      id: any;
+      nombre: string;
+      apellido: string;
+      edad: number;
+      alias: string;
+      avatar: string;
+    };
+    text: string;
+  }
 
 export class Usuario {
     administrador: boolean;

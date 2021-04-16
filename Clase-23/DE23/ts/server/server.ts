@@ -56,8 +56,16 @@ io.on("connection", (socket: any) => {
       });
   });
   socket.on("mensaje", (messag: any) => {
-    const { mail, message } = messag;
-    const mensaje = { mail: mail, dateandhour: fechayhora(), message: message};
+    const { mail, nombre, apellido, edad, alias, avatar, message } = messag;
+    const mensaje = { 
+      mail: mail,
+      nombre: nombre, 
+      apellido: apellido, 
+      edad: edad,
+      alias: alias,
+      avatar: avatar,
+      dateandhour: fechayhora(),
+      message: message};
     agregarMensaje(mensaje)
       .then(() => {
         traerMensajes()

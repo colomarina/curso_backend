@@ -66,6 +66,11 @@
         }
         let inputValuesChat = {
             mail: '',
+            nombre: '',
+            apellido: '',
+            edad: '',
+            alias: '',
+            avatar: '',
             message: ''
         }
         let msg = ''
@@ -79,7 +84,7 @@
                 if ((e.target.name === 'title') || (e.target.name === 'price') || (e.target.name === 'thumbnail')) {
                     inputValuesFormulario = {...inputValuesFormulario, [e.target.name]: e.target.value};
                 }
-                if ((e.target.name === 'mail') || (e.target.name === 'message')) {
+                if ((e.target.name === 'mail') || (e.target.name === 'nombre') || (e.target.name === 'apellido') || (e.target.name === 'edad') || (e.target.name === 'alias') || (e.target.name === 'avatar') || (e.target.name === 'message')) {
                     inputValuesChat = {...inputValuesChat, [e.target.name]: e.target.value};
                 }
           })
@@ -126,13 +131,18 @@
             e.preventDefault()
             if ((inputValuesChat.mail !== '') && (inputValuesChat.message !== '')) {
                 document.querySelector('#errores_chat').style.display = "none";
-                const { mail, message} = inputValuesChat;
+                const { mail, nombre, apellido, edad, alias, avatar, message } = inputValuesChat;
                 inputs.forEach(input => {
                     input.value = '';
                 });
                 socket.emit('mensaje', inputValuesChat);
                 inputValuesChat = {
                     mail: '',
+                    nombre: '',
+                    apellido: '',
+                    edad: '',
+                    alias: '',
+                    avatar: '',
                     message: ''
                 }
             } else {

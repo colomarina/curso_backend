@@ -19,6 +19,7 @@
     "mongoose": "^5.12.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
+    "normalizr": "^3.6.1",
     "socket.io": "^4.0.0",
     "sqlite3": "^5.0.2",
     "ts-node": "^9.1.1",

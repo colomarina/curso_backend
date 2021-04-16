@@ -16,6 +16,8 @@ routerProductos.get("/productos/vista-test", productosController.createRandom);
 routerProductos.get("/productos/:producto_id", productosController.getOne);
 routerProductos.put("/productos/:producto_id", productosController.update);
 routerProductos.delete("/productos/:producto_id", productosController.delete);
+// /desnormalizar
+routerProductos.get("/desnormalizar", productosController.getAllMensajes);
 
 
 

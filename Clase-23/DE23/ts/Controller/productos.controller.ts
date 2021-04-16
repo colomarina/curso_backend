@@ -1,21 +1,36 @@
-import { actualizarProducto, agregarProducto, eliminarProducto, traerProducto, traerProductos, traerProductosXNombres, traerProductosXRangoPrecios } from "../DB/index.db";
+import { actualizarProducto, agregarProducto, eliminarProducto, traerMensajes, traerProducto, traerProductos, traerProductosXNombres, traerProductosXRangoPrecios } from "../DB/index.db";
 import { mensaje_error, usuario } from "../routes/constantes";
 import faker from 'faker';
+import { desnormalizar, normalizar } from "../Service/normalize.service";
+
+import { denormalize, normalize, schema } from "normalizr";
+import { MensajeJSON } from "../routes/objetos";
+
+const authors = new schema.Entity('authors')
+const mensaje = new schema.Entity('mensajes', {
+  author: authors
+})
 
 module.exports = {
 
   getAll: (req: any, res: any) => {
     traerProductos()
       .then((productos) => {
-        // res.send(productos)
         res.render("pages/index");
       })
       .catch((error) => {
-        // mensaje_error.error = error.errno;
-        // mensaje_error.descripcion = "No hay productos cargados";
-        // console.log(error);
         res.send(error);
       });
+  },
+
+  getAllMensajes: (req: any, res: any) => {
+    traerMensajes()
+      .then((mensajes: any) => {
+        const mensajesNormalizados = normalizar(mensajes)
+        const mensajesDesNormalizados = denormalize(mensajesNormalizados.result, [mensaje], mensajesNormalizados.entities)
+        // const mensajesDesNormalizados = desnormalizar(mensajesNormalizados)
+        res.json(mensajesNormalizados)
+      })
   },
 
   getOne: (req: any, res: any) => {

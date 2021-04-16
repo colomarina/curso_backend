@@ -1,28 +1,28 @@
 {
-  "mensajes" : [
+  "mensajes":[
     {
-      "id":"123",
-      "author": {
-        "id": "lucasmarina@gmail.com",
+        "author": {
+          "id": "lucasmarina@gmail.com",
           "nombre":"lucas",
           "apellido":"marina",
           "edad":23,
           "alias":"colo",
           "avatar":"avatar"
-      },
-      "text": "Hola colo!"
+        },
+        "message": "Hola colo!"
+      
     },
     {
-      "id":"157",
-      "author": {
-        "id": "kiramarina@gmail.com",
+        "author": {
+          "id": "kiramarina@gmail.com",
           "nombre":"kira",
           "apellido":"marina",
           "edad":1,
           "alias":"kira",
           "avatar":"avatar"
-      },
-      "text": "Hola kira!"
-    }
+        },
+        "message": "Hola kira!"
+      }
+    
   ]
 }
