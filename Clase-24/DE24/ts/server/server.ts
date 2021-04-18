@@ -13,7 +13,11 @@ import {
   traerMensajes,
   traerProductos,
 } from "../DB/index.db";
-
+declare module "express-session" {
+  interface Session {
+    user: string;
+  }
+}
 const app = express();
 const http = require("http").Server(app);
 export const io = require("socket.io")(http);
@@ -22,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(session({
-  secret: 'secreto',
+  secret: 'colito753951',
   resave: false,
   saveUninitialized: true,
   rolling:true,
@@ -30,12 +34,6 @@ app.use(session({
     maxAge:60000
   }
 }))
-
-declare module "express-session" {
-  interface Session {
-    user: string;
-  }
-}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));

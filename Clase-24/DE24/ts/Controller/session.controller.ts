@@ -5,7 +5,8 @@ module.exports = {
       res.render("pages/login");
     } else if(req.query.username === 'kira') {
       req.session.user = req.query.username;
-      res.send(`Login success ${req.session.user}`)
+      req.session.admin = true;
+      res.send(`Login success ${req.session.user} is Admin!!`)
     } else if(req.query.username){
       req.session.user = req.query.username;
       res.redirect('/api/productos')
