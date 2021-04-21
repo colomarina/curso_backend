@@ -1,0 +1,21 @@
+{
+  "name": "Practica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "service-rest": "./node_modules/.bin/json-server -p 4000 ./service/users.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "casual": "^1.6.2",
+    "express": "^4.17.1",
+    "json-server": "^0.16.3",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.1.2",
+    "winston": "^3.3.3"
+  }
+}
