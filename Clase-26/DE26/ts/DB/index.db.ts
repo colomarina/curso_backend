@@ -53,9 +53,6 @@ export const agregarMensaje = async (mensaje: Mensaje): Promise<string> => {
   return await mensajeSaved.save()
 };
 
-// USUARIOS
-// export 
-
 // PASSWORD HASH 
 
 export const createHash = (password: any) => {

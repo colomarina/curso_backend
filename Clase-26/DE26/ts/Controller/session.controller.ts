@@ -46,7 +46,7 @@ module.exports = {
   },
 
   failRoute: (req: Request, res: Response) => {
-    res.status(404).render('routing error', {})
+    res.status(404).render('pages/error404')
   }
 
 }

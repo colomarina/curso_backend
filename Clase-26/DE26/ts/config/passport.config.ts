@@ -30,16 +30,17 @@ passport.use('login', new LocalStrategy(
 passport.use('singup', new LocalStrategy(
   {
     passReqToCallback : true
-  }, (req:any, res:any, username:any, password:any, done:any) => {
+  }, (req:any, username:any, password:any, done:any) => {
     const findOrCreateUser = () => {
       userModel.findOne({'username': username}, (err:any, user:any) => {
+        console.log(`Username: ${username}, Password: ${password}, User: ${user}, REQUEST: ${req.body}`)
         if (err){
           console.log(`Error in SingUp: ${err}`);
           return done(err);
         }
         if (user){
           console.log('User already exists');
-          return done(null, false,console.log('message', 'User Already Exists'))
+          return done(null, false,{ message: 'User Already Exists'})
         } else {
           let newUser = new userModel();
           newUser.username = username;
@@ -50,10 +51,9 @@ passport.use('singup', new LocalStrategy(
           newUser.save((err:any) => {
             if(err){
               console.log(`Error in Saving user: ${err}`);
-              res.redirect('/registerError')
-              // throw err;
+              throw err;
             }
-            // console.log('User registration succesful')
+            console.log('User registration succesful')
             return done(null, newUser)
           })
         }
