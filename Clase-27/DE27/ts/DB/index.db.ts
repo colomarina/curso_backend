@@ -4,7 +4,9 @@ import { Mensaje, Producto } from "../routes/objetos";
 import { mensajeModel } from "./models/mensajes.model";
 import { productoModel } from './models/producto.model';
 
-const conn = mongoose.connect('mongodb+srv://colito:LM753951@cluster0.yjnag.mongodb.net/ecommerce', {
+// 'mongodb+srv://colito:LM753951@cluster0.yjnag.mongodb.net/ecommerce' 
+const conn = mongoose.connect(
+  'mongodb+srv://colito:LM753951@cluster0.yjnag.mongodb.net/ecommerce?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true
   }
