@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { actualizarProducto, agregarProducto, eliminarProducto, traerMensajes, traerProducto, traerProductos, traerProductosXNombres, traerProductosXRangoPrecios } from "../DB/index.db";
+import { actualizarProducto, agregarProducto, eliminarProducto, traerMensajes, traerProducto, traerProductos, traerProductosXNombres, traerProductosXRangoPrecios } from "../db/index.db";
 import { mensaje_error, usuario } from "../routes/constantes";
 import faker from 'faker';
-import { normalizar } from "../Service/normalize.service";
+import { normalizar } from "../service/normalize.service";
 import { denormalize, schema } from "normalizr";
 
 const authors = new schema.Entity('authors')
@@ -15,9 +15,11 @@ module.exports = {
   getAll: (req: Request, res: Response) => {
     traerProductos()
       .then(() => {
-        let user: any = req.user;
+        const { username }:any = req.user;
         res.render('pages/index', {
-          tituloUsuario: user.username
+          nombreUsuario: username.toUpperCase(),
+          fotoUsuario: undefined,
+          emailUsuario: undefined,
         })
       })
       .catch((error) => {

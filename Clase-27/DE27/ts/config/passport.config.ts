@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import passport from "passport";
-import { createHash, isValidPassword } from "../DB/index.db";
-import { userModel } from "../DB/models/user.model";
-import { userFacebookModel } from '../DB/models/userFacebook.model';
+import { createHash, isValidPassword } from "../db/index.db";
+import { userModel } from "../db/models/user.model";
+import { userFacebookModel } from '../db/models/userFacebook.model';
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -17,11 +17,11 @@ passport.use('login', new LocalStrategy(
       return done(err);
     }
     if (!user) {
-      console.log(`User Not Found with username: ${username}`);
+      // console.log(`User Not Found with username: ${username}`);
       return done(null, false, console.log('message', 'User Not Found'))
     }
     if (!isValidPassword(user, password)) {
-      console.log('Invalid Password');
+      // console.log('Invalid Password');
       return done(null, false, console.log('message', 'Invalid Password'))
     }
     return done(null, user)
@@ -37,11 +37,11 @@ passport.use('singup', new LocalStrategy(
       userModel.findOne({ 'username': username }, (err: any, user: any) => {
         // console.log(`Username: ${username}, Password: ${password}, User: ${user}, REQUEST: ${req.body}`)
         if (err) {
-          console.log(`Error in SingUp: ${err}`);
+          // console.log(`Error in SingUp: ${err}`);
           return done(err);
         }
         if (user) {
-          console.log('User already exists');
+          // console.log('User already exists');
           return done(null, false, { message: 'User Already Exists' })
         } else {
           let newUser = new userModel();
@@ -52,10 +52,10 @@ passport.use('singup', new LocalStrategy(
           newUser.apellido = req.body.apellido;
           newUser.save((err: any) => {
             if (err) {
-              console.log(`Error in Saving user: ${err}`);
+              // console.log(`Error in Saving user: ${err}`);
               throw err;
             }
-            console.log('User registration succesful')
+            // console.log('User registration succesful')
             return done(null, newUser)
           })
         }
@@ -69,31 +69,32 @@ passport.use(new FacebookStrategy({
   clientID: '1833584373478234',
   clientSecret: 'c64f741c6c4e75fdd580162fd59d3d86',
   callbackURL: "http://localhost:8080/auth/facebook/callback",
-  profileFields: ['id', 'displayName', 'photos', 'email']
+  profileFields: ['id', 'displayName', 'email' , 'picture.type(large)'],
+  scope: ["email"],
+  enableProof: true,
 }, (accessToken:any, refreshToken:any, profile:any, cb:any) => {
   const findOrCreate = () => {
     userFacebookModel.findOne({ 'facebookId': profile.id }, (err: any, user: any) => {
-      // console.log(`Username: ${username}, Password: ${password}, User: ${user}, REQUEST: ${req.body}`)
-      console.log(profile)
       if (err) {
-        console.log(`Error in SingUp: ${err}`);
+        // console.log(`Error in SingUp: ${err}`);
         return cb(err);
       }
       if (user) {
-        console.log('User already exists');
-        console.log(user);
+        // console.log('User already exists, login succesfully');
+        
         return cb(null, user)
       } else {
-        console.log(profile)
         let newUser = new userFacebookModel();
         newUser.facebookId = profile.id;
-        newUser.username = profile.displayName;
+        newUser.username = profile._json.name;
+        newUser.email = profile._json.email;
+        newUser.photo = profile._json.picture.data.url;
         newUser.save((err: any) => {
           if (err) {
-            console.log(`Error in Saving user: ${err}`);
+            // console.log(`Error in Saving user: ${err}`);
             throw err;
           }
-          console.log('User registration succesfully')
+          // console.log('User registration succesfully')
           return cb(null, newUser)
         })
       }

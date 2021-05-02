@@ -5,7 +5,7 @@ import session from 'express-session';
 import cookieParser from "cookie-parser";
 import path = require("path");
 import { fechayhora } from "../routes/constantes";
-import { agregarMensaje, connect, traerMensajes } from "../DB/index.db";
+import { agregarMensaje, connect, traerMensajes } from "../db/index.db";
 import { inicializarPassport, sessionPassport } from "../config/passport.config";
 import { sessionConfig } from "../config/session.config";
 

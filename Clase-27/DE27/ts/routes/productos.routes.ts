@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { checkAuthentication } from "../config/passport.config";
-const productosController = require('../Controller/productos.controller')
+const productosController = require('../controller/productos.controller')
 
 let routerProductos = Router();
 

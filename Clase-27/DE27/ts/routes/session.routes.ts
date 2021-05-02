@@ -1,9 +1,10 @@
 import { Router } from "express";
 import passport from "passport";
-const session = require( "../Controller/session.controller");
+const session = require( "../controller/session.controller");
 let routerSession = Router();
 
 // Passport
+routerSession.get("/", session.goLogin);
 
 // LOGIN
 routerSession.get("/login", session.getLogin);

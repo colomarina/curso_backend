@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { carrito, listaProductos, mensaje_error } from "./constantes";
+import { carrito, listaProductos, mensaje_error } from "../routes/constantes";
 let routerCarritos = Router();
 
 // Rutas para Carritos

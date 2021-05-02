@@ -5,6 +5,10 @@ module.exports = {
   getRoot: (req: Request, res: Response) => {
     res.send("Bienvenido")
   },
+  
+  goLogin: (req: Request, res: Response) => {
+    res.redirect('/login')
+  },
 
   getLogin: (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
@@ -38,11 +42,18 @@ module.exports = {
   },
 
   getLogout: (req: Request, res: Response) => {
-    let user: any = req.user;
-    req.logout();
-    res.render('pages/logout', {
-      tituloUsuario: user.username
-    })
+    try {
+      const { username }:any = req.user;
+      req.logout();
+      res.render('pages/logout', {
+        nombreUsuario: username
+      })
+    } catch (error) {
+      req.logout();
+      res.render('pages/logout', {
+        nombreUsuario: undefined
+      })
+    }
   },
 
   failRoute: (req: Request, res: Response) => {
@@ -50,14 +61,12 @@ module.exports = {
   },
 
   getLoginFacebook: (req: Request, res: Response) => {
-    console.log(req.user)
-    const { _id , username }:any = req.user;
-    res.json(req.user)
-    // let user: any = req.user;
-    // res.render('pages/index', {
-    //   tituloUsuario: user.username
-    // })
-    // res.redirect('/api/productos')
+    const { _id , username , photo, email}:any = req.user;
+    res.render('pages/index', {
+      nombreUsuario: username.toUpperCase() ,
+      fotoUsuario: photo,
+      emailUsuario: email,
+    })
   }
 
 }
