@@ -7,10 +7,6 @@ Rutas modificadas
 
 agregue la cantidad de procesadores
 
-En el package.json agregue los scripts necesarios!
-En mi compu instale de forma global Forever, PM2 y ts-node
-
-
 ## Consigna
 
 Tomando con base el proyecto que vamos realizando, agregar un parámetro más en la ruta de comando que permita ejecutar al servidor en modo fork o cluster. Dicho parámetro será 'FORK' en el primer caso y 'CLUSTER' en el segundo, y de no pasarlo, el servidor iniciará en modo fork.

@@ -1,7 +1,7 @@
-"use strict";
 // Ruta Random
 // const max = 1000;
 // const min = 1;
+
 // const randoms = (cantidad) => {
 //   let objetoJson = {}
 //   for (let i = 0; i < cantidad; i++) {

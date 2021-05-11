@@ -1,0 +1,24 @@
+{
+  "name": "coderhouse-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod":"forever list"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasmg-dev/coderhouse-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasmg-dev/coderhouse-backend/issues"
+  },
+  "homepage": "https://github.com/lucasmg-dev/coderhouse-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "forever": "^3.0.4"
+  }
+}
