@@ -6,9 +6,14 @@
   "scripts": {
     "start": "node ts/server/server.ts",
     "dev": "nodemon ts/server/server.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "fork": "nodemon ts/server/server.js",
+    "cluster": "nodemon ts/server/serverConCluster.js",
+    "forever": "forever start --minUptime 10000 --spinSleepTime 10000 ts/server/server.js",
+    "pm2fork": "pm2 start ts/server/server.ts --name ForkApp --watch -- 8080",
+    "pm2cluster": "pm2 start ts/server/server.ts --name ClusterApp --watch -i max -- 8081",
+    "pm2delete": "pm2 delete all"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -66,16 +66,19 @@ io.on("connection", (socket: any) => {
       });
   });
 });
+
+
 declare module "express-session" {
   interface Session {
     user: string;
   }
 }
-const port = process.argv[4] || 8080;
+
+const port = process.argv[4] || 8081;
 const server = http.listen(port, () => {
   connect()
-  .then(() => {
-    console.log(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
-  })
-  .catch((err) => console.log(err));
+        .then(() => {
+          console.log(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
+        })
+        .catch((err) => console.log(err));
 });
