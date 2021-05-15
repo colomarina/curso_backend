@@ -10,8 +10,8 @@
     "fork": "nodemon ts/server/server.js",
     "cluster": "nodemon ts/server/serverConCluster.js",
     "forever": "forever start --minUptime 10000 --spinSleepTime 10000 ts/server/server.js",
-    "pm2fork": "pm2 start ts/server/server.ts --name ForkApp --watch -- 8080",
-    "pm2cluster": "pm2 start ts/server/server.ts --name ClusterApp --watch -i max -- 8081",
+    "pm2fork": "pm2 start ts/server/server.js --name ForkApp --watch -- 8081",
+    "pm2cluster": "pm2 start ts/server/server.ts --name ClusterApp --watch -i max -- 8082",
     "pm2delete": "pm2 delete all"
   },
   "author": "",
