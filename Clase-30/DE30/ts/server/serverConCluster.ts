@@ -9,6 +9,9 @@ import { fechayhora } from "../routes/constantes";
 import { agregarMensaje, connect, traerMensajes } from "../db/index.db";
 import { inicializarPassport, sessionPassport } from "../config/passport.config";
 import { sessionConfig } from "../config/session.config";
+import cluster from "cluster";
+import { cpus } from "os";
+const numCPUs = require('os').cpus().length
 
 const app = express();
 const http = require("http").Server(app);
@@ -39,15 +42,16 @@ io.on("connection", (socket: any) => {
     });
   socket.on("mensaje", (messag: any) => {
     const { mail, nombre, apellido, edad, alias, avatar, message } = messag;
-    const mensaje = { 
+    const mensaje = {
       mail: mail,
-      nombre: nombre, 
-      apellido: apellido, 
+      nombre: nombre,
+      apellido: apellido,
       edad: edad,
       alias: alias,
       avatar: avatar,
       dateandhour: fechayhora(),
-      message: message};
+      message: message
+    };
     agregarMensaje(mensaje)
       .then(() => {
         traerMensajes()
@@ -74,11 +78,26 @@ declare module "express-session" {
   }
 }
 
-const port = process.argv[4] || 8081;
-const server = http.listen(port, () => {
-  connect()
-        .then(() => {
-          console.log(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
-        })
-        .catch((err) => console.log(err));
-});
+if (cluster.isMaster) {
+  console.log(numCPUs)
+  console.log(`PID MASTER ${process.pid}`)
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork()
+  }
+
+  cluster.on('exit', (worker) => {
+    console.log('Worker', worker.process.pid, 'died', new Date().toLocaleString())
+    cluster.fork()
+  })
+}
+else {
+  const port = process.argv[4] || 8080;
+  const server = http.listen(port, () => {
+    connect()
+      .then(() => {
+        console.log(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
+      })
+      .catch((err) => console.log(err));
+  });
+}

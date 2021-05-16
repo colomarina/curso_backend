@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start ts/server/server.ts --name ClusterApp --watch -i max -- 8082",
+    "start": "node ts/server/server.ts",
     "dev": "nodemon ts/server/server.ts",
     "build": "tsc -p .",
     "fork": "nodemon ts/server/server.js",
