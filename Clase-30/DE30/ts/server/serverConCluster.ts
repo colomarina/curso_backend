@@ -92,7 +92,7 @@ if (cluster.isMaster) {
   })
 }
 else {
-  const port = process.argv[4] || 8080;
+  const port = process.argv[2] || 8080;
   const server = http.listen(port, () => {
     connect()
       .then(() => {

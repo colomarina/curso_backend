@@ -74,7 +74,7 @@ declare module "express-session" {
   }
 }
 
-const port = process.argv[4] || 8082;
+const port = process.argv[2] || 8082;
 
 app.get('/datos', (req,res) => {
   console.log(`port: ${port}`)

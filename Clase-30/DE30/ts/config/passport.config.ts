@@ -6,8 +6,8 @@ import { userFacebookModel } from '../db/models/userFacebook.model';
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-const FACEBOOK_CLIENT_ID = process.argv[2] || '1833584373478234';
-const FACEBOOK_CLIENT_SECRET = process.argv[3] || 'c64f741c6c4e75fdd580162fd59d3d86';
+const FACEBOOK_CLIENT_ID = '1833584373478234';
+const FACEBOOK_CLIENT_SECRET = 'c64f741c6c4e75fdd580162fd59d3d86';
 
 passport.use('login', new LocalStrategy(
   {

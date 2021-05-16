@@ -70,7 +70,7 @@ exports.io.on("connection", (socket) => {
         });
     });
 });
-const port = process.argv[4] || 8081;
+const port = process.argv[2] || 8081;
 const server = http.listen(port, () => {
     index_db_1.connect()
         .then(() => {

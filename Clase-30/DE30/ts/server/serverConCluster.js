@@ -88,7 +88,7 @@ if (cluster_1.default.isMaster) {
 else {
     // IRIA MI CODIGO
     //console.log(parseInt(process.argv[2]))
-    const port = process.argv[4] || 8080;
+    const port = process.argv[2] || 8080;
     const server = http.listen(port, () => {
         index_db_1.connect()
             .then(() => {
