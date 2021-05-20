@@ -1,0 +1,118 @@
+Statistical profiling result from fork_con_consolelog-v8.log, (4516 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   3826   84.7%          C:\WINDOWS\SYSTEM32\ntdll.dll
+    672   14.9%          C:\Program Files\nodejs\node.exe
+      2    0.0%          C:\WINDOWS\System32\KERNELBASE.dll
+      2    0.0%          C:\WINDOWS\System32\KERNEL32.DLL
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      6    0.1%   42.9%  LazyCompile: *resolve path.js:130:10
+      2    0.0%   14.3%  LazyCompile: *hidden internal/errors.js:282:25
+      1    0.0%    7.1%  LazyCompile: *strEscape internal/util/inspect.js:414:19
+      1    0.0%    7.1%  LazyCompile: *nextTick internal/process/task_queues.js:105:18
+      1    0.0%    7.1%  LazyCompile: *next C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\index.js:176:16
+      1    0.0%    7.1%  LazyCompile: *dirname path.js:582:10
+      1    0.0%    7.1%  LazyCompile: *Module._nodeModulePaths internal/modules/cjs/loader.js:700:37
+      1    0.0%    7.1%  LazyCompile: *Module._findPath internal/modules/cjs/loader.js:607:28
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+     14    0.3%  100.0%  JavaScript
+      0    0.0%    0.0%  C++
+     13    0.3%   92.9%  GC
+   4502   99.7%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   3826   84.7%  C:\WINDOWS\SYSTEM32\ntdll.dll
+     60    1.6%    LazyCompile: *cpus os.js:103:14
+     60  100.0%      LazyCompile: ~getInfo C:\wamp\www\curso_backend\Clase-32\DE32\js\controller\forExercise.controller.js:5:14
+     60  100.0%        LazyCompile: ~handle C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\layer.js:86:49
+     60  100.0%          LazyCompile: ~next C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\route.js:114:16
+     60  100.0%            LazyCompile: ~dispatch C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\route.js:98:45
+
+    672   14.9%  C:\Program Files\nodejs\node.exe
+    536   79.8%    C:\Program Files\nodejs\node.exe
+    336   62.7%      LazyCompile: ~handleWriteReq internal/stream_base_commons.js:45:24
+    336  100.0%        LazyCompile: ~writeGeneric internal/stream_base_commons.js:141:22
+    336  100.0%          LazyCompile: ~Socket._writeGeneric net.js:760:42
+    336  100.0%            LazyCompile: ~Socket._write net.js:797:35
+     41    7.6%      LazyCompile: ~wrapSafe internal/modules/cjs/loader.js:1038:18
+     41  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1092:37
+     41  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1147:37
+     37   90.2%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:974:33
+      4    9.8%            LazyCompile: *Module._load internal/modules/cjs/loader.js:823:24
+     25    4.7%      LazyCompile: ~realpathSync fs.js:1534:22
+     19   76.0%        LazyCompile: ~toRealPath internal/modules/cjs/loader.js:362:20
+     18   94.7%          LazyCompile: ~tryFile internal/modules/cjs/loader.js:353:17
+     18  100.0%            LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:369:23
+      1    5.3%          LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:607:28
+      1  100.0%            LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      6   24.0%        LazyCompile: *Module._findPath internal/modules/cjs/loader.js:607:28
+      4   66.7%          LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      4  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+      2   33.3%          LazyCompile: *Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      2  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+     22    4.1%      LazyCompile: ~cpus os.js:103:14
+     22  100.0%        LazyCompile: ~getInfo C:\wamp\www\curso_backend\Clase-32\DE32\js\controller\forExercise.controller.js:5:14
+     22  100.0%          LazyCompile: ~handle C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\layer.js:86:49
+     22  100.0%            LazyCompile: ~next C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\router\route.js:114:16
+     18    3.4%      LazyCompile: ~stat internal/modules/cjs/loader.js:139:14
+     11   61.1%        LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:607:28
+     10   90.9%          LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      8   80.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+      2   20.0%            LazyCompile: *Module._load internal/modules/cjs/loader.js:823:24
+      1    9.1%          LazyCompile: ~resolveMainPath internal/modules/run_main.js:8:25
+      1  100.0%            LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:64:31
+      7   38.9%        LazyCompile: ~tryFile internal/modules/cjs/loader.js:353:17
+      7  100.0%          LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:369:23
+      7  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:607:28
+      7    1.3%      C:\Program Files\nodejs\node.exe
+      1   14.3%        LazyCompile: ~toNamespacedPath path.js:549:19
+      1  100.0%          LazyCompile: ~stat internal/modules/cjs/loader.js:139:14
+      1  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:607:28
+      1   14.3%        LazyCompile: ~stat internal/modules/cjs/loader.js:139:14
+      1  100.0%          LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:607:28
+      1  100.0%            LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      1   14.3%        LazyCompile: ~splitRoot fs.js:1492:33
+      1  100.0%          LazyCompile: ~realpathSync fs.js:1534:22
+      1  100.0%            LazyCompile: *Module._findPath internal/modules/cjs/loader.js:607:28
+      1   14.3%        LazyCompile: ~removeColors internal/util.js:47:22
+      1  100.0%          LazyCompile: ~isBelowBreakLength internal/util/inspect.js:1655:28
+      1  100.0%            LazyCompile: ~reduceToSingleString internal/util/inspect.js:1679:30
+      1   14.3%        LazyCompile: ~parse C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\content-type\index.js:106:16
+      1  100.0%          LazyCompile: ~setCharset C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\utils.js:250:41
+      1  100.0%            LazyCompile: ~send C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\response.js:107:25
+      1   14.3%        LazyCompile: ~header C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\response.js:754:29
+      1  100.0%          LazyCompile: ~json C:\wamp\www\curso_backend\Clase-32\DE32\node_modules\express\lib\response.js:239:25
+      1  100.0%            LazyCompile: ~getInfo C:\wamp\www\curso_backend\Clase-32\DE32\js\controller\forExercise.controller.js:5:14
+      1   14.3%        LazyCompile: *Module._findPath internal/modules/cjs/loader.js:607:28
+      1  100.0%          LazyCompile: *Module._resolveFilename internal/modules/cjs/loader.js:901:35
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+      6    1.1%      LazyCompile: ~openSync fs.js:449:18
+      6  100.0%        LazyCompile: ~readFileSync fs.js:357:22
+      6  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1147:37
+      5   83.3%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:974:33
+      1   16.7%            LazyCompile: *Module._load internal/modules/cjs/loader.js:823:24
+     13    1.9%    LazyCompile: *Module._load internal/modules/cjs/loader.js:823:24
+     13  100.0%      LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1147:37
+      9   69.2%        LazyCompile: *Module.load internal/modules/cjs/loader.js:974:33
+      9  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+      9  100.0%            LazyCompile: *require internal/modules/cjs/helpers.js:71:31
+      4   30.8%        LazyCompile: ~Module.load internal/modules/cjs/loader.js:974:33
+      4  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:823:24
+      4  100.0%            LazyCompile: *require internal/modules/cjs/helpers.js:71:31
+

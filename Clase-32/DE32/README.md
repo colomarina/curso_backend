@@ -1,12 +1,5 @@
 # Desafio Entregable 32
 
-## Resolucion
-
-Agregue la comprensión gzip
-
-Elegi Winston
-- Modifique server.ts y productos.controller.ts
-
 ## Consigna
 
 Realizar el análisis completo de performance del servidor con el que venimos trabajando.
@@ -23,7 +16,9 @@ Luego utilizaremos Autocannon en línea de comandos, emulando 100 conexiones con
 
   2) El perfilamiento del servidor con el modo inspector de node.js --inspect. Revisar el tiempo de los procesos menos performantes sobre el archivo fuente de inspección.
   3) El diagrama de flama con 0x, emulando la carga con Autocannon con los mismos parámetros anteriores.
-Realizar un informe en formato pdf sobre las pruebas realizadas incluyendo los resultados de todos los test (texto e imágenes). 
+
+Realizar un informe en formato pdf sobre las pruebas realizadas incluyendo los resultados de todos los test (texto e imágenes).
+
 👉 Al final incluir la conclusión obtenida a partir del análisis de los datos.
 
 
