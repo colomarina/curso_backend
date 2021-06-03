@@ -1,5 +1,4 @@
 import express from "express";
-import compression from 'compression';
 import routerProductos from "../routes/productos.routes";
 import routerSession from "../routes/session.routes";
 import routerForExercise from "../routes/forExercise.routes";
@@ -11,12 +10,14 @@ import { agregarMensaje, connect, traerMensajes } from "../db/index.db";
 import { inicializarPassport, sessionPassport } from "../config/passport.config";
 import { sessionConfig } from "../config/session.config";
 import { logger } from "../config/winston.config";
+import cluster from "cluster";
+import { cpus } from "os";
+const numCPUs = require('os').cpus().length
 
 const app = express();
 const http = require("http").Server(app);
 export const io = require("socket.io")(http);
 
-app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
@@ -26,7 +27,7 @@ app.use(sessionPassport);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use("/api", routerProductos);
-// app.use("/exercise", routerForExercise);
+app.use("/exercise", routerForExercise);
 app.use("/", routerSession);
 
 io.on("connection", (socket: any) => {
@@ -76,11 +77,26 @@ declare module "express-session" {
   }
 }
 
-const port = process.argv[2] || 8080;
-const server = http.listen(port, () => {
-  connect()
-        .then(() => {
-          logger.info(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
-        })
-        .catch((err) => logger.error(err));
-});
+if (cluster.isMaster) {
+  console.log(numCPUs)
+  console.log(`PID MASTER ${process.pid}`)
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork()
+  }
+
+  cluster.on('exit', (worker) => {
+    console.log('Worker', worker.process.pid, 'died', new Date().toLocaleString())
+    cluster.fork()
+  })
+}
+else {
+  const port = process.argv[2] || 8081;
+  const server = http.listen(port, () => {
+    connect()
+          .then(() => {
+            logger.info(`El servidor se encuentra en el puerto: ${port} y se conecto correctamente a MongoAtlas DB ecommerce`)
+          })
+          .catch((err) => logger.error(err));
+  });
+}
