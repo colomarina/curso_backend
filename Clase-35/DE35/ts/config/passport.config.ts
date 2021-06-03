@@ -82,7 +82,6 @@ passport.use(new FacebookStrategy({
       }
       if (user) {
         // console.log('User already exists, login succesfully');
-        
         return cb(null, user)
       } else {
         let newUser = new userFacebookModel();
