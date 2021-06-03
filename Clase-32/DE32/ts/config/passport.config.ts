@@ -6,8 +6,10 @@ import { userFacebookModel } from '../db/models/userFacebook.model';
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-const FACEBOOK_CLIENT_ID = '1833584373478234';
-const FACEBOOK_CLIENT_SECRET = 'c64f741c6c4e75fdd580162fd59d3d86';
+// const FACEBOOK_CLIENT_ID = '1833584373478234';
+// const FACEBOOK_CLIENT_SECRET = 'c64f741c6c4e75fdd580162fd59d3d86';
+const FACEBOOK_CLIENT_ID = '144567617729985';
+const FACEBOOK_CLIENT_SECRET = 'd050d4bcb6a419b96d04579e487816f1';
 
 passport.use('login', new LocalStrategy(
   {

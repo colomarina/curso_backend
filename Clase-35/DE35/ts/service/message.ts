@@ -1,15 +1,13 @@
-const accountSid = 'ACea0fd4783d04917f2e731816bec6fba2';
-const authToken = 'e71d764809dadb6e98651fd51e497573';
+require('dotenv').config()
+const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTHTOKEN);
 
-const client = require('twilio')(accountSid, authToken);
-
-const message = {
-  body: 'Hola colito, soy un SMS desde Node.js',
+const sendSMS = (mensaje: string) => client.messages.create({
+  body: `${mensaje}`,
   from: '+16122842307',
   to: '+542216408251'
-}
-
-const sendSMS = () => client.messages.create(message)
+})
+.then((message: any) => console.log(message))
+.catch(console.log)
 
 export {
   sendSMS

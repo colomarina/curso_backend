@@ -1,11 +1,5 @@
 # Desafio Entregable 35
 
-##
-
-Enviar mail a mi mismo cuando un usuario hace login o logout con facebook con ethereal donde el asunto del mail debe describir la operación (log in, log out) y el nombre del usuario junto a la fecha y hora del evento
-
-Enviar mail cuando se loguea con gmail a la cuenta de email registrada en Facebook ó alguna otra elegida. Se debe adjuntar la foto de perfil de la red social Facebook en el envío
-
 Cuando en el chat se mande un mensaje que contenga la palabra 'administrador' se debe mandar SMS a mi celu , quien envio ese mensaje y que decia el mensaje
 (
 const mensaje = 'Hola mundo como va 65876514 mnsgilb wndefau administrador'
