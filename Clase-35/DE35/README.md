@@ -1,15 +1,26 @@
 # Desafio Entregable 35
 
-Cuando en el chat se mande un mensaje que contenga la palabra 'administrador' se debe mandar SMS a mi celu , quien envio ese mensaje y que decia el mensaje
-(
-const mensaje = 'Hola mundo como va 65876514 mnsgilb wndefau administrador'
+Faltaria subirlo a heroku , que es donde tengo problemas.
 
-const palabra = 'administrador'
+El mail de gmail dice adjuntar la foto de facebook , el problema es que no es una imagen lo que me da facebook, es un link que si lo abris te descarga la imagen de perfil. Entonces tome la decision de mandarle en el html , aunque esta comentado como seria si fuera un adjunto real de una foto.
 
-const existe = mensaje.includes(palabra) ? 'Manda el mensaje' : '...'
+Agregue Dotenv
+Asi seria mi .env:
 
-console.log(existe)
-)
+PORT=
+MONGO_URL=
+MONGO_SECRET_KEY=
+FACEBOOK_CLIENT_ID=
+FACEBOOK_CLIENT_SECRET=
+MAIL_ETHEREAL=
+MAIL_ETHEREAL_PASSWORD=
+MAIL_GMAIL=
+MAIL_GMAIL_PASSWORD=
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTHTOKEN=
+TWILIO_FROM=
+TWILIO_TO=
+
 ## Consigna
 
 Realizar los siguientes cambios sobre el proyecto en el que venimos trabajando:
