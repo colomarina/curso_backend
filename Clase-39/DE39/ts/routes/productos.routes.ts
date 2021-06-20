@@ -6,7 +6,7 @@ let routerProductos = Router();
 // Rutas para Productos
 routerProductos.get("/productos", productosController.getAll);
 // POST
-// routerProductos.post("/productos",productosController.create);
+routerProductos.post("/productos",productosController.create);
 // /productos/:producto_id
 // routerProductos.get("/productos/:producto_id", productosController.getOne);
 routerProductos.put("/productos/:producto_id", productosController.update);

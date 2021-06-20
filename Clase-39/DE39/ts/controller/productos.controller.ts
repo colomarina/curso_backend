@@ -117,8 +117,10 @@ module.exports = {
         res.json(mensaje_error);
       } else {
         agregarProducto(req.body)
-          .then(() => {
-            res.sendStatus(201)
+          .then((response) => {
+            // console.log(response)
+            res.json(response)
+            // res.sendStatus(201)
           })
           .catch((error: any) => {
             mensaje_error.error = `Error en el ${error.path}`;

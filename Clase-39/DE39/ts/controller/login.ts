@@ -54,7 +54,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     })
     .catch((error) => {
       logger.error(error)
-      logger.error('fuck')
       res.json({
         error: error
       })

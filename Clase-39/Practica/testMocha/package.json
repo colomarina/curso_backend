@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^8.3.2"
+    "mocha": "^8.4.0"
   }
 }

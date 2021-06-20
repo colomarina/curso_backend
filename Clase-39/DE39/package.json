@@ -12,7 +12,8 @@
     "forever": "forever start --minUptime 10000 --spinSleepTime 10000 js/server/server.js",
     "pm2fork": "pm2 start js/server/server.js --name ForkApp --watch -- 8081",
     "pm2cluster": "pm2 start ts/server/server.ts --name ClusterApp --watch -i max -- 8082",
-    "pm2delete": "pm2 delete all"
+    "pm2delete": "pm2 delete all",
+    "test": "mocha ts/test/index.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "@types/nodemailer": "^6.4.2",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
+    "chai": "^4.3.4",
     "compression": "^1.7.4",
     "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
@@ -36,6 +38,7 @@
     "graphql-compose": "^9.0.1",
     "graphql-compose-mongoose": "^9.4.1",
     "knex": "^0.95.2",
+    "mocha": "^9.0.1",
     "mongoose": "^5.12.13",
     "mysql": "^2.18.1",
     "nodemailer": "^6.6.1",
@@ -47,6 +50,7 @@
     "passport-local": "^1.0.0",
     "socket.io": "^4.0.0",
     "sqlite3": "^5.0.2",
+    "supertest": "^6.1.3",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
     "ts-node": "^9.1.1",
