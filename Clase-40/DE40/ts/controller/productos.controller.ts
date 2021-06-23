@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { actualizarProducto, agregarProducto, eliminarProducto, traerMensajes, traerProducto, traerProductos, traerProductosXNombres, traerProductosXRangoPrecios } from "../db/index.db";
 import { mensaje_error, usuario } from "../routes/constantes";
 import faker from 'faker';
 import { normalizar } from "../service/normalize.service";
 import { denormalize, schema } from "normalizr";
 import { logger } from '../config/winston.config';
+import model from '../db/index.db'
 
 const authors = new schema.Entity('authors')
 const mensaje = new schema.Entity('mensajes', {
@@ -13,27 +13,27 @@ const mensaje = new schema.Entity('mensajes', {
 
 module.exports = {
 
-  getAllFront: (req: Request, res: Response) => {
-    traerProductos().then(() => {
-      const { username }: any = req.user;
-      res.render('pages/index', {
-        nombreUsuario: username.toUpperCase(),
-        fotoUsuario: undefined,
-        emailUsuario: undefined,
-      })
-    })
-      .catch((error) => {
-        logger.error(error)
-        res.send(error);
-      });
-  },
+  // getAllFront: (req: Request, res: Response) => {
+  //   traerProductos().then(() => {
+  //     const { username }: any = req.user;
+  //     res.render('pages/index', {
+  //       nombreUsuario: username.toUpperCase(),
+  //       fotoUsuario: undefined,
+  //       emailUsuario: undefined,
+  //     })
+  //   })
+  //     .catch((error) => {
+  //       logger.error(error)
+  //       res.send(error);
+  //     });
+  // },
 
   getAll: (req: Request, res: Response) => {
-    traerProductos()
-      .then((datos) => {
+    model?.traerProductos()
+      .then((datos: any) => {
         res.json(datos)
       })
-      .catch((error) => {
+      .catch((error: any) => {
         logger.error(error)
         res.send(error);
       });
@@ -41,7 +41,7 @@ module.exports = {
 
 
   getAllMensajes: (req: Request, res: Response) => {
-    traerMensajes()
+    model?.traerMensajes()
       .then((mensajes: any) => {
         const mensajesNormalizados = normalizar(mensajes)
         const mensajesDesNormalizados = denormalize(mensajesNormalizados.result, [mensaje], mensajesNormalizados.entities)
@@ -51,8 +51,8 @@ module.exports = {
 
   getOne: (req: Request, res: Response) => {
     // Listar 1 producto x su id
-    traerProducto(req.params.producto_id)
-      .then((producto: String) => {
+    model?.traerProducto(req.params.producto_id)
+      .then((producto: any) => {
         (producto !== null) ? res.json(producto) : res.json({ Error: 'Producto inexistente' });
       })
       .catch((error: any) => {
@@ -66,11 +66,11 @@ module.exports = {
   getWithFilters: (req: Request, res: Response) => {
     if (req.query.nombre !== undefined) {
       if (req.query.nombre !== '') {
-        traerProductosXNombres(req.query.nombre)
+        model?.traerProductosXNombres(req.query.nombre)
           .then((productos: any) => {
             res.send(productos)
           })
-          .catch((error) => {
+          .catch((error: any) => {
             logger.error(error)
             res.send(error);
           });
@@ -83,11 +83,11 @@ module.exports = {
     }
     else if ((req.query.min_precio !== undefined) && (req.query.max_precio !== undefined)) {
       if ((req.query.min_precio !== '') && (req.query.max_precio !== '')) {
-        traerProductosXRangoPrecios(req.query.min_precio, req.query.max_precio)
+        model?.traerProductosXRangoPrecios(req.query.min_precio, req.query.max_precio)
           .then((productos: any) => {
             res.send(productos)
           })
-          .catch((error) => {
+          .catch((error: any) => {
             logger.error(error)
             res.send(error);
           });
@@ -116,8 +116,8 @@ module.exports = {
         logger.error(mensaje_error)
         res.json(mensaje_error);
       } else {
-        agregarProducto(req.body)
-          .then((response) => {
+        model?.agregarProducto(req.body)
+          .then((response: any) => {
             // console.log(response)
             res.json(response)
             // res.sendStatus(201)
@@ -167,10 +167,10 @@ module.exports = {
     if (usuario.administrador) {
       const id = req.params.producto_id;
       const update = req.body;
-      actualizarProducto(id, update)
-        .then((data) => {
-          traerProducto(id)
-            .then((producto: String) => {
+      model?.actualizarProducto(id, update)
+        .then((data: any) => {
+          model?.traerProducto(id)
+            .then((producto: any) => {
               (producto !== null) ? res.send(producto) : res.json({ Error: 'Producto inexistente' });
             })
             .catch((error: any) => {
@@ -198,7 +198,7 @@ module.exports = {
   delete: (req: Request, res: Response) => {
     // Elimina un producto por su id
     if (usuario.administrador) {
-      eliminarProducto(req.params.producto_id)
+      model?.eliminarProducto(req.params.producto_id)
         .then((producto: any) => {
           (producto !== null) ? res.send(producto) : res.json({ Error: 'No se pudo eliminar el producto (Producto no encontrado)' });
         })

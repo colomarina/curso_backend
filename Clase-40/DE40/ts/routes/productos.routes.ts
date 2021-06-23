@@ -8,7 +8,7 @@ routerProductos.get("/productos", productosController.getAll);
 // POST
 routerProductos.post("/productos",productosController.create);
 // /productos/:producto_id
-// routerProductos.get("/productos/:producto_id", productosController.getOne);
+routerProductos.get("/productos/:producto_id", productosController.getOne);
 routerProductos.put("/productos/:producto_id", productosController.update);
 routerProductos.delete("/productos/:producto_id", productosController.delete);
 

@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
-import { crearCarrito, agregarProductoEnCarrito, traerCarrito, traerUser } from "../db/index.db";
 import { mensaje_error, usuario } from "../routes/constantes";
 import { logger } from '../config/winston.config';
 import { carritoModel } from '../db/models/carrito.model';
 import { enviarMailEthereal } from '../service/mail';
 import { sendSMS, sendWhatsApp } from '../service/message';
+import model from '../db/index.db'
 
 module.exports = {
 
   getOne: (req: Request, res: Response) => {
-    traerCarrito(req.params.carrito_id)
-      .then((datos) => {
+    model?.traerCarrito(req.params.carrito_id)
+      .then((datos: any) => {
         res.json(datos)
       })
-      .catch((error) => {
+      .catch((error: any) => {
         logger.error(error)
         res.send(error);
       })
@@ -21,8 +21,8 @@ module.exports = {
 
   create: (req: Request, res: Response) => {
     //Crea 1 carrito
-    crearCarrito(req.body)
-      .then((data) => {
+    model?.crearCarrito(req.body)
+      .then((data: any) => {
         res.sendStatus(201)
       })
       .catch((error: any) => {
@@ -39,7 +39,7 @@ module.exports = {
     if (usuario.administrador) {
       const idCarrito = req.params.carrito_id;
       const producto = req.body;
-      agregarProductoEnCarrito(idCarrito, producto)
+      model?.agregarProductoEnCarrito(idCarrito, producto)
         .then((data: any) => {
           res.sendStatus(200);
         })
@@ -60,9 +60,9 @@ module.exports = {
 
   finishBuying: (req: Request, res: Response) => {
     const idCarrito = req.body.carrito_id;
-    traerCarrito(idCarrito)
+    model?.traerCarrito(idCarrito)
       .then( async (carrito: any) => {
-        traerUser(carrito.usuario)
+        model?.traerUser(carrito.usuario)
           .then((user: any) => {
             let template = '<h1>Tu Pedido:</h1><br>';
             carrito.productos.forEach((producto: any) => {

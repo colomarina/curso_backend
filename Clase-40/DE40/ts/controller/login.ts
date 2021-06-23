@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { logger } from '../config/winston.config';
-import { crearCarrito, updateUser } from '../db/index.db';
+import model from '../db/index.db';
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 import { transporterEthereal, transporterGmail } from '../service/mail';
@@ -35,10 +35,10 @@ const enviarMailEthereal = (asunto: string, user: any) => {
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const UpdateUser = req.body;
   const user = req.user;
-  updateUser( user , UpdateUser)
+  model?.updateUser( user , UpdateUser)
     .then(() => {
       enviarMailEthereal('Nuevo Registro', UpdateUser)
-      crearCarrito(user)
+      model?.crearCarrito(user)
         .then(() => {
           res.json({
             message: 'Signup successful',

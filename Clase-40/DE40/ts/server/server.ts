@@ -6,7 +6,7 @@ import session from 'express-session';
 import cookieParser from "cookie-parser";
 import path = require("path");
 import { fechayhora } from "../routes/constantes";
-import { agregarMensaje, connect, traerMensajes } from "../db/index.db";
+import model from '../db/index.db'
 import { inicializarPassport, sessionPassport } from "../config/passport.config";
 import { sessionConfig } from "../config/session.config";
 import { logger } from "../config/winston.config";
@@ -30,7 +30,7 @@ app.use('/', mainRouter)
 
 io.on("connection", (socket: any) => {
   logger.info(`ID: ${socket.id}`);
-  traerMensajes()
+  model?.traerMensajes()
     .then((mensajes: any) => {
       mensajes.length === 0
         ? logger.info("No hay mensajes en la DB")
@@ -54,10 +54,9 @@ io.on("connection", (socket: any) => {
     if (message.includes('administrador')) {
       sendSMS(message)
     }
-    agregarMensaje(mensaje)
+    model?.agregarMensaje(mensaje)
       .then(() => {
-
-        traerMensajes()
+        model?.traerMensajes()
           .then((mensajes: any) => {
             mensajes.length === 0
               ? logger.info("No hay mensajes")
@@ -82,9 +81,6 @@ declare module "express-session" {
 
 const PORT = process.env.PORT || 8080;
 const server = http.listen(PORT, () => {
-  connect()
-    .then(() => {
-      logger.info(`El servidor se encuentra en el puerto: ${PORT} y se conecto correctamente a MongoAtlas DB ecommerce`)
-    })
-    .catch((err) => logger.error(err));
+  logger.info(`El servidor se encuentra en el puerto: ${PORT}`)
 });
+server.on('error', (error: any) => logger.error(`Error en el servidor ${error}`))
