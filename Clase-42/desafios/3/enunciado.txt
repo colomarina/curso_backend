@@ -1,0 +1,1 @@
+Realizar el programa del desafío anterior, pero esta vez usando las variables de entorno para pasar el tipo de operación y los dos números.

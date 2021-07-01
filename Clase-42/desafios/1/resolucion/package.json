@@ -1,0 +1,17 @@
+{
+  "name": "resolucion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "operacionConMinimist.js",
+  "scripts": {
+    "sin-minimist": "node operacionSinMinimist.js + 5 6",
+    "con-minimist": "node operacionConMinimist.js --op + --n1 5 --n2 6",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}

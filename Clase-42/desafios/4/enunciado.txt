@@ -1,0 +1,7 @@
+Crear un servidor basado en express que reciba respectivamente mediante las variables de entorno HOST, PORT y NODE_ENV el host, puerto de escucha y el modo de operación: development y production.
+
+Para el caso de no recibir todas o alguna de las variables de entorno, los valores por default serán:
+
+port: 8080
+host:127.0.0.1
+modo: development

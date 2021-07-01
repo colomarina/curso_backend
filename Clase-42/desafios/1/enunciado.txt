@@ -1,0 +1,9 @@
+Realizar una aplicación en Javascript ejecutada a través de Node.JS que reciba por línea de comandos la operación a realizar entre dos números (+ - * /) que se pasarán a continuación. Ej: node operacion.js + 5 6
+
+Mostrar el resultado por consola.
+
+Comprobar que sucederá si cambiamos el orden de los parámetros, dejando el código sin modificar. Ej: node operacion.js 5 6 +
+
+Incorporar la utilización de la dependencia minimist para realizar la misma operación anterior. Un ejemplo de llamada podría ser: node operacion.js --op + --n1 5 --n2 6
+
+Verificar que en este caso el cambio del orden de los parámetros en la línea de comandos no arroja errores.

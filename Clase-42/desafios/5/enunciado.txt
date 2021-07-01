@@ -1,0 +1,7 @@
+Crear un servidor basado en express que mediante la dependencia dotenv permita leer un archivo de configuración .env creado en la carpeta del servidor. Dicho archivo contendrá el valor de las variables de entorno HOST, PORT y NODE_ENV que se utilizarán para setear el host, el puerto de escucha y el modo de operación (development ó production) del servidor.
+
+Para el caso de no recibir todas o alguna de las configuraciones, los valores de entorno por default serán:
+
+port: 8080
+host:127.0.0.1
+modo: development
