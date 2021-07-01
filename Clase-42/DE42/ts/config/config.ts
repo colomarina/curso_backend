@@ -1,15 +1,16 @@
 const dotenv = require('dotenv');
 const path = require('path');
-const { puerto } = require('minimist')(process.argv.slice(2));
+const { persistencia, puerto } = require('minimist')(process.argv.slice(2));
 
 dotenv.config({
-  path: path.resolve(__dirname, process.env.NODE_ENV + '.env')
+  path: path.resolve(process.env.NODE_ENV + '.env')
 })
 
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   HOST: process.env.HOST || 'localhost',
-  PORT: puerto || process.env.PORT || 8085,
+  PORT: puerto || process.env.PORT || 8080,
+  PERSISTENCIA: persistencia || process.env.PERSISTENCIA,
   MONGO_URL: process.env.MONGO_URL,
   MONGO_SECRET_KEY: process.env.MONGO_SECRET_KEY,
   FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&& nodemon ts/server/server.ts --persistencia Mongo --puerto 8080",
+    "dev": "set NODE_ENV=development&& nodemon ts/server/server.ts",
     "prod": "set NODE_ENV=production&& nodemon ts/server/server.ts --persistencia Mongo --puerto 8090",
     "build": "tsc -p .",
     "test": "mocha ts/test/index.test.js"

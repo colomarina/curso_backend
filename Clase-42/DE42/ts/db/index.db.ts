@@ -1,7 +1,7 @@
 import persistenciaMemory from './factory/memory'
 import persistenciaFileSystem from './factory/fileSystem'
 import persistenciaMongo from "./factory/mongoDB"
-const { persistencia } = require('minimist')(process.argv.slice(2));
+const config = require('../config/config')
 
 /* -------------------------------------- */
 /*                FACTORY                 */
@@ -17,5 +17,5 @@ class FactoryPersonaModel {
     }
 }
 
-const opcion = persistencia || 'Mongo'
+const opcion = config.PERSISTENCIA || 'Mongo'
 export default FactoryPersonaModel.set(opcion)
