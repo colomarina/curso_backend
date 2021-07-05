@@ -11,11 +11,13 @@ import { sessionConfig } from "../config/session.config";
 import { logger } from "../config/winston.config";
 import { sendSMS } from "../service/message";
 
+const cors = require('cors')
 const config = require('../config/config')
 const app = express();
 const http = require("http").Server(app);
 export const io = require("socket.io")(http);
 
+app.use(cors());
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

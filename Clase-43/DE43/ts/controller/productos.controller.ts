@@ -13,30 +13,16 @@ const mensaje = new schema.Entity('mensajes', {
 
 module.exports = {
 
-  // getAllFront: (req: Request, res: Response) => {
-  //   traerProductos().then(() => {
-  //     const { username }: any = req.user;
-  //     res.render('pages/index', {
-  //       nombreUsuario: username.toUpperCase(),
-  //       fotoUsuario: undefined,
-  //       emailUsuario: undefined,
-  //     })
-  //   })
-  //     .catch((error) => {
-  //       logger.error(error)
-  //       res.send(error);
-  //     });
-  // },
-
-  getAll: (req: Request, res: Response) => {
-    model?.traerProductos()
-      .then((datos: any) => {
-        res.json(datos)
-      })
-      .catch((error: any) => {
-        logger.error(error)
-        res.send(error);
-      });
+  getAll: async (req: Request, res: Response) => {
+    const productos = await model?.traerProductos()
+    try {
+      if (productos) {
+        res.json(productos)
+      }
+    } catch (error) {
+      logger.error(error)
+      res.send(error);
+    }
   },
 
 
@@ -49,18 +35,21 @@ module.exports = {
       })
   },
 
-  getOne: (req: Request, res: Response) => {
+  getOne: async (req: Request, res: Response) => {
     // Listar 1 producto x su id
-    model?.traerProducto(req.params.producto_id)
-      .then((producto: any) => {
-        (producto !== null) ? res.json(producto) : res.json({ Error: 'Producto inexistente' });
-      })
-      .catch((error: any) => {
-        mensaje_error.error = `Error en el ${error.path}`;
-        mensaje_error.descripcion = `El ${error.path} ${error.value} tiene ciertas inconsistencias`;
-        logger.error(error)
-        res.json(mensaje_error);
-      });
+    const producto = await model?.traerProducto(req.params.producto_id)
+    try {
+      if (producto) {
+        res.json(producto)
+      } else {
+        res.json({ Error: 'Producto inexistente' })
+      }
+    } catch (error: any) {
+      mensaje_error.error = `Error en el ${error.path}`;
+      mensaje_error.descripcion = `El ${error.path} ${error.value} tiene ciertas inconsistencias`;
+      logger.error(error)
+      res.json(mensaje_error);
+    }
   },
 
   getWithFilters: (req: Request, res: Response) => {
@@ -100,7 +89,7 @@ module.exports = {
     }
   },
 
-  create: (req: Request, res: Response) => {
+  create: async (req: Request, res: Response) => {
     //Agregar un producto al listado
     if (usuario.administrador) {
       if (
@@ -116,18 +105,17 @@ module.exports = {
         logger.error(mensaje_error)
         res.json(mensaje_error);
       } else {
-        model?.agregarProducto(req.body)
-          .then((response: any) => {
-            // console.log(response)
-            res.json(response)
-            // res.sendStatus(201)
-          })
-          .catch((error: any) => {
-            mensaje_error.error = `Error en el ${error.path}`;
-            mensaje_error.descripcion = `Producto ${error.value} no fue encontrado`;
-            logger.error(mensaje_error)
-            res.json(mensaje_error);
-          });
+        const productoCreado = await model?.agregarProducto(req.body)
+        try {
+          if (productoCreado) {
+            res.json(productoCreado)
+          }
+        } catch (error: any) {
+          mensaje_error.error = `Error en el ${error.path}`;
+          mensaje_error.descripcion = `Producto ${error.value} no fue encontrado`;
+          logger.error(mensaje_error)
+          res.json(mensaje_error);
+        }
       }
     } else {
       mensaje_error.error = "403";
@@ -162,31 +150,25 @@ module.exports = {
     }
   },
 
-  update: (req: Request, res: Response) => {
+  update: async (req: Request, res: Response) => {
     // Actualiza un producto por su id
     if (usuario.administrador) {
       const id = req.params.producto_id;
       const update = req.body;
-      model?.actualizarProducto(id, update)
-        .then((data: any) => {
-          model?.traerProducto(id)
-            .then((producto: any) => {
-              (producto !== null) ? res.send(producto) : res.json({ Error: 'Producto inexistente' });
-            })
-            .catch((error: any) => {
-              mensaje_error.error = `Error en el ${error.path}`;
-              mensaje_error.descripcion = `El ${error.path} ${error.value} tiene ciertas inconsistencias`;
-              logger.error(mensaje_error)
-              res.json(mensaje_error);
-            });
-        })
-        .catch((error: any) => {
-          mensaje_error.error = error.errno;
-          mensaje_error.descripcion = "Producto no encontrado";
-          logger.error(error)
-          res.json(mensaje_error);
-        });
-
+      const producto: any = await model?.actualizarProducto(id, update)
+      try {
+        const productoActualizado = await model?.traerProducto(producto.id)
+        if (productoActualizado) {
+          res.json(productoActualizado)
+        } else {
+          res.json({ Error: 'Producto inexistente' })
+        }
+      } catch (error: any) {
+        mensaje_error.error = `Error en el ${error.path}`;
+        mensaje_error.descripcion = `El ${error.path} ${error.value} tiene ciertas inconsistencias`;
+        logger.error(mensaje_error)
+        res.json(mensaje_error);
+      }
     } else {
       mensaje_error.error = "1";
       mensaje_error.descripcion = "Acceso denegado , necesita rol Administrador";
@@ -215,5 +197,11 @@ module.exports = {
       res.json(mensaje_error);
     }
 
+  }
+}
+
+class ControladorProductos {
+  constructor() {
+    this
   }
 }
