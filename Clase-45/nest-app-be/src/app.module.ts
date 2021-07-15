@@ -12,7 +12,7 @@ import { AuthService } from './auth/auth.service';
 
 dotenv.config();
 
-const uri = `mongodb+srv://colito:LM753951@cluster0.yjnag.mongodb.net/ecommerce?retryWrites=true&w=majority`
+const uri = process.env.URI;
 
 @Module({
   imports: [
